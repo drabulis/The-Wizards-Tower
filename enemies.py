@@ -1,14 +1,13 @@
 import random
-from main import Player
+
 
 class NPC:
     def __init__(self, name, hp=0, ):
         self.name = name
         self.hp = hp
 
-    def receive_damage(self):
-        player = Player()
-        self.hp -= player.damage() #reikia player funkcijos
+    def receive_damage(self, damage):
+        self.hp -= damage
         if self.hp <= 0:
             return f"{self.name} has been defeated."
         else:
@@ -31,7 +30,7 @@ class Goblin(NPC):
             damage = random.randint(12, 24)
         return damage
         
-class Ddragon(NPC):
+class Dragon(NPC):
     def __init__(self, name, hp=100):
         super().__init__(name, hp)
 
