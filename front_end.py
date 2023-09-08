@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
 
-layout = [
-    [sg.Text(Player)]
+intro_window = [
+    [sg.Text("Enter player name:")]
+    [sg.Input("Demogorgon", key='name_input')]
+    [sg.Button("Create wizard"), sg.Button("Exit")]
 ]
