@@ -25,6 +25,10 @@ class Player:
     def add_spell(self, spell):
         self.spell_book.append(spell)
 
+    def cast_spell(self, spell):
+        if spell in self.spell_book and isinstance(spell, (magic.Firebolt, magic.Fireball)):
+            return spell.get_damage()
+
 
 class World:
     pass

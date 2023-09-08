@@ -16,6 +16,7 @@ class Spell:
     
     def __repr__(self) -> str:
         return f'({self.name}, {self.min_damage}, {self.max_damage}, {self.mana_cost})'
+    
 
 
 class Firebolt(Spell):
