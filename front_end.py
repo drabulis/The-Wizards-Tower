@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
-
+from main import Player
+import enemies
 
 
 def intro():
@@ -13,40 +14,37 @@ def intro():
 
     while True:
         intro_event, intro_values = intro_window.read()
-        #vardas = intro_values("-INPUT-")
         if intro_event == sg.WINDOW_CLOSED or intro_event == "EXIT":
             break
         if intro_event == "ACCEPT":
+            player_name = intro_values["-INPUT-"]
             intro_window.close()
-            main()
+            main(player_name)
 
-def main():    
+def main(player_name):
+    player = Player(player_name)
+    button_labels = player.spell_book
     layout = [
-        [sg.Text(key="vardo_langelis")],
-        [sg.Button("VEIKSMAS1"),
-        sg.Button("VEIKSMAS2"), 
-        sg.Button("VEIKSMAS3"), 
-        sg.Button("VEIKSMAS4"),
-        sg.Button("EXIT GAME"),
-        sg.Text(size=(40, 1), key="-OUTPUT-")]
+        [sg.Text(player_name, text_color="WHITE")],
+        [sg.Text(player.hp, text_color="RED"), sg.Text(player.mana, text_color="BLUE")],
+        [sg.Button(button_label, key=f'-BUTTON-{index}-')
+        for index, button_label in enumerate(button_labels)]
     ]
 
     window = sg.Window("WIZARDS TOWER", layout)
     
     while True:
         event, values = window.read()
-        #window["vardo_langelis"].update(intro_values)
         if event == sg.WINDOW_CLOSED or event == "EXIT GAME":
             window.close()
             break
-        elif event == "VEIKSMAS1":
-            pass
-        elif event == "VEIKSMAS2":
-            pass
-        elif event == "VEIKSMAS3":
-            pass
-        elif event == "VEIKSMAS4":
-            pass
+        elif event.startswith('-BUTTON-'):
+            button_index = int(event.split('-')[2])
+            return button_index
+        if event == "-BUTTON-0":
+            give_dmg = player.cast_spell(player.spell_book[0])
+
+
 
     window['-OUTPUT-'].update(
         f"GAME OVER",
