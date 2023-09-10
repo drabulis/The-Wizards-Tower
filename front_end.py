@@ -112,7 +112,7 @@ def second_stage(wizard):
 player_name = get_player_name()
 
 if player_name:
-    wizard = Player(name=player_name, hp=1000, mana=50)
+    wizard = Player(name=player_name, hp=100, mana=50)
     goblin = Goblin(name="Goblin", hp=50)
     spells = [Firebolt(), ManaRestore()]
 
@@ -174,7 +174,7 @@ while not game_over:
                 if goblin.hp <= 0:
                     window['-ENEMY_HP-'].update("Defeated!")
                     fight_log.append(f"Player wins!")
-                    sg.popup(f"{wizard.name} wins and got new powerful spell 'Firebolt'!", title="Victory")
+                    sg.popup(f"{wizard.name} wins and got new powerful spell 'Fireball'!", title="Victory")
                     window.close()
                     second_stage(wizard)
                     game_over = True
