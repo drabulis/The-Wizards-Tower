@@ -27,6 +27,12 @@ class ManaRestore(Spell):
     def __init__(self, name='ManaRestore', min_damage=0, max_damage=0, mana_cost=-10, **kwargs) -> None:
         super().__init__(name, min_damage, max_damage, mana_cost, **kwargs)
 
+    def get_damage(self):
+        return 0
+
+    def restore_mana(self):
+        return "Player restores mana."
+
 class NecroticBlast(Spell):
     def __init__(self, name='Necroticblast', min_damage=3, max_damage=6, mana_cost=4, lifesteal=True, **kwargs) -> None:
         super().__init__(name, min_damage, max_damage, mana_cost, lifesteal, **kwargs)
