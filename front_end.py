@@ -5,22 +5,28 @@ from enemies import Goblin, Dragon
 from magic import Firebolt, ManaRestore, Fireball
 import os
 
+sg.theme('DarkBrown4') 
+
 def get_player_name():
-    layout = [
-        [sg.Text("Enter your name:")],
-        [sg.InputText(key='-PLAYER_NAME-')],
-        [sg.Button('Start')]
-    ]
-    window = sg.Window('THE WIZARDS TOWER', layout, finalize=True)
     while True:
-        event, values = window.read()
-        if event == sg.WINDOW_CLOSED:
-            break
-        if event == 'Start':
+        layout = [
+            [sg.Text("Enter your name:")],
+            [sg.InputText(key='-PLAYER_NAME-')],
+            [sg.Button('Start')]
+        ]
+        window = sg.Window('THE WIZARDS TOWER', layout, finalize=True)
+        while True:
+            event, values = window.read()
             player_name = values['-PLAYER_NAME-']
-            window.close()
-            return player_name
-    return None
+            if event == sg.WINDOW_CLOSED:
+                break
+            if event == 'Start':
+                player_name = values['-PLAYER_NAME-']
+                if len(player_name) > 0:
+                    window.close()
+                    return player_name
+                else:
+                    sg.popup_error("Please enter your name.")           
 
 def second_stage(wizard):
     dragon = Dragon(name="Dragon", hp=100) 
@@ -35,7 +41,7 @@ def second_stage(wizard):
 
     stage2_center_column = [
         [sg.Text("SECOND STAGE", size=(40, 1), justification='center', font=("Helvetica", 16))],
-        [sg.Output(size=(40, 10), key='-FIGHT_INFO-', text_color='black', background_color='white', font=("Helvetica", 10))],
+        [sg.Output(size=(55, 10), key='-FIGHT_INFO-', text_color='black', background_color='white', font=("Helvetica", 10))],
     ]
 
     stage2_right_column = [
@@ -50,7 +56,7 @@ def second_stage(wizard):
         [sg.Column(stage2_left_column, element_justification='center'), sg.Column(stage2_center_column, element_justification='center'), sg.Column(stage2_right_column, element_justification='center')],
         [sg.HorizontalSeparator()],
         spell_buttons,
-        [sg.Button("Exit")]
+        [sg.Button("Exit")],
     ]
 
     window = sg.Window("THE WIZARDS TOWER", layout, finalize=True)
@@ -79,20 +85,20 @@ def second_stage(wizard):
                     else:
                         player_damage = selected_spell.get_damage()
                         dragon.receive_damage(player_damage)
-                        player_info = f"Player casts {selected_spell.name} and deals {player_damage} damage to Dragon!"
+                        player_info = f"\nPlayer casts {selected_spell.name} and deals {player_damage} damage to Dragon!"
                         fight_log.append(player_info)
 
                     if dragon.hp <= 0:
                         window['-ENEMY_HP-'].update("Defeated!")
                         fight_log.append(f"Player wins!")
-                        sg.popup("Victory!", title="Victory")
+                        sg.popup("   Victory!", title="Victory")
                         window.close()
                         game_over = True
 
                     else:
-                        enemy_damage = dragon.attack()
+                        enemy_damage, selected_attack = dragon.attack()
                         wizard.take_damage(enemy_damage)
-                        enemy_info = f"Dragon attacks and deals {enemy_damage} damage to Wizard!"
+                        enemy_info = f"Dragon uses {selected_attack} and deals {enemy_damage} damage to Wizard!"
                         fight_log.append(enemy_info)
 
                         if wizard.hp <= 0:
@@ -112,25 +118,25 @@ def second_stage(wizard):
 player_name = get_player_name()
 
 if player_name:
-    wizard = Player(name=player_name, hp=100, mana=50)
+    wizard = Player(name=player_name, hp=1000, mana=50)
     goblin = Goblin(name="Goblin", hp=50)
     spells = [Firebolt(), ManaRestore()]
 
 left_column = [
     [sg.Image(filename='The-Wizards-Tower\img\wizardas.png')],
-    [sg.Text(wizard.name, font=("Helvetica", 12), text_color='black')],
+    [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
     [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
     [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
 ]
 
 center_column = [
     [sg.Text("FIRST STAGE", size=(40, 1), justification='center', font=("Helvetica", 16))],
-    [sg.Output(size=(40, 10), key='-FIGHT_INFO-', text_color='black', background_color='white', font=("Helvetica", 10))],
+    [sg.Output(size=(55, 10), key='-FIGHT_INFO-', text_color='black', background_color='white', font=("Helvetica", 10))],
 ]
 
 right_column = [
     [sg.Image(filename='The-Wizards-Tower\img\goblinas.png')],
-    [sg.Text(goblin.name, font=("Helvetica", 12), text_color='black')],
+    [sg.Text(goblin.name, font=("Helvetica", 12), text_color='white')],
     [sg.Text(f"HP: {goblin.hp}", key='-ENEMY_HP-', text_color='red')],
 ]
 
@@ -168,7 +174,7 @@ while not game_over:
                 else:
                     player_damage = selected_spell.get_damage()
                     goblin.receive_damage(player_damage)
-                    player_info = f"Player casts {selected_spell.name} and deals {player_damage} damage to Goblin!"
+                    player_info = f"\nPlayer casts {selected_spell.name} and deals {player_damage} damage to Goblin!"
                     fight_log.append(player_info)
 
                 if goblin.hp <= 0:
@@ -180,9 +186,9 @@ while not game_over:
                     game_over = True
 
                 else:
-                    enemy_damage = goblin.attack()
+                    enemy_damage, selected_attack = goblin.attack()
                     wizard.take_damage(enemy_damage)
-                    enemy_info = f"Goblin attacks and deals {enemy_damage} damage to Wizard!"
+                    enemy_info = f"Goblin uses {selected_attack} and deals {enemy_damage} damage to {wizard.name}!"
                     fight_log.append(enemy_info)
 
                     if wizard.hp <= 0:

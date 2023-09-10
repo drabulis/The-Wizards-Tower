@@ -28,7 +28,7 @@ class Goblin(NPC):
             damage = random.randint(6, 12)
         elif selected_attack == "critical hit":
             damage = random.randint(12, 24)
-        return damage  # Return the calculated damage
+        return damage, selected_attack  # Return the calculated damage
         
 class Dragon(NPC):
     def __init__(self, name, hp=100):
@@ -45,4 +45,4 @@ class Dragon(NPC):
             damage = random.randint(15, 25)
         elif selected_attack == "critical hit":
             damage = random.randint(20, 35)
-        return damage
+        return damage, selected_attack

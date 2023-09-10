@@ -31,7 +31,7 @@ class ManaRestore(Spell):
         return 0
 
     def restore_mana(self):
-        return "Player restores mana."
+        return "\nPlayer restores mana."
 
 class NecroticBlast(Spell):
     def __init__(self, name='Necroticblast', min_damage=3, max_damage=6, mana_cost=4, lifesteal=True, **kwargs) -> None:
