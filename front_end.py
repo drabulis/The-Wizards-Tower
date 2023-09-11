@@ -4,6 +4,10 @@ from main import Player
 from enemies import Goblin, Dragon, Cerberus
 from magic import Firebolt, ManaRestore, Fireball, NecroticBlast
 import tkinter as tk
+import pygame
+
+pygame.mixer.init()
+pygame.mixer.music.load('The-Wizards-Tower/cave.mp3')
 
 sg.theme('DarkBrown4') 
 
@@ -211,10 +215,10 @@ def third_stage(wizard):
                     window['-ENEMY_HP-'].update(f"HP: {cerberus.hp}")
                     window['-PLAYER_HP-'].update(f"HP: {wizard.hp}")
                     window['-PLAYER_MANA-'].update(f"Mana: {wizard.mana}")
-
+    pygame.mixer.music.stop()
     window.close()
 
-
+pygame.mixer.music.play(-1)
 player_name = get_player_name()
 
 if player_name:
