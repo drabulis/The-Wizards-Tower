@@ -1,12 +1,15 @@
 import PySimpleGUI as sg
-import random
 from main import Player
 from enemies import Goblin, Dragon, Cerberus
 from magic import Firebolt, ManaRestore, Fireball, NecroticBlast
-import tkinter as tk
 import pygame
 
 pygame.mixer.init()
+game_music = 'music/cave.mp3'
+pygame.mixer.music.load(game_music)
+spell_sound = pygame.mixer.Sound('music/spell.mp3')
+mana_sound = pygame.mixer.Sound('music/manaa.mp3')
+necrotic_sound = pygame.mixer.Sound('music/necroticc.mp3')
 pygame.mixer.music.load('GIT/The-Wizards-Tower/cave.mp3')
 
 sg.theme('DarkBrown4') 
@@ -85,14 +88,17 @@ def second_stage(wizard):
                     wizard.mana -= selected_spell.mana_cost
 
                     if isinstance(selected_spell, ManaRestore):
+                        mana_sound.play()
                         mana_restore_info = selected_spell.restore_mana()
                         fight_log.append(mana_restore_info)
                     else:
+                        spell_sound.play()
                         player_damage = selected_spell.get_damage()
                         dragon.receive_damage(player_damage)
                         player_info = f"\nPlayer casts {selected_spell.name} and deals {player_damage} damage to Dragon!"
                         fight_log.append(player_info)
                         if selected_spell.lifesteal == True:
+                            necrotic_sound.play()
                             wizard.hp = wizard.hp + player_damage * 5
                             hp_restore_info = f'Player restores {player_damage * 5} HP'
                             fight_log.append(hp_restore_info)
@@ -179,14 +185,17 @@ def third_stage(wizard):
                     wizard.mana -= selected_spell.mana_cost
 
                     if isinstance(selected_spell, ManaRestore):
+                        mana_sound.play()
                         mana_restore_info = selected_spell.restore_mana()
                         fight_log.append(mana_restore_info)
                     else:
+                        spell_sound.play()
                         player_damage = selected_spell.get_damage()
                         cerberus.receive_damage(player_damage)
                         player_info = f"\nPlayer casts {selected_spell.name} and deals {player_damage} damage to Cerberus!"
                         fight_log.append(player_info)
                         if selected_spell.lifesteal == True:
+                            necrotic_sound.play()
                             wizard.hp = wizard.hp + player_damage * 5
                             hp_restore_info = f'Player restores {player_damage * 5} HP'
                             fight_log.append(hp_restore_info)
@@ -222,7 +231,7 @@ pygame.mixer.music.play(-1)
 player_name = get_player_name()
 
 if player_name:
-    wizard = Player(name=player_name, hp=2000, mana=50)
+    wizard = Player(name=player_name, hp=200, mana=50)
     goblin = Goblin(name="Goblin", hp=50)
     spells = [Firebolt(), ManaRestore()]
 
@@ -275,9 +284,11 @@ while not game_over:
                 wizard.mana -= selected_spell.mana_cost
 
                 if isinstance(selected_spell, ManaRestore):
+                    mana_sound.play()
                     mana_restore_info = selected_spell.restore_mana()
                     fight_log.append(mana_restore_info)
                 else:
+                    spell_sound.play()
                     player_damage = selected_spell.get_damage()
                     goblin.receive_damage(player_damage)
                     player_info = f"\nPlayer casts {selected_spell.name} and deals {player_damage} damage to Goblin!"
