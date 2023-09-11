@@ -26,7 +26,7 @@ class Player:
         self.spell_book.append(spell)
 
     def cast_spell(self, spell):
-        if spell in self.spell_book and isinstance(spell, (magic.Firebolt, magic.Fireball)):
+        if spell in self.spell_book and isinstance(spell, (magic.Firebolt, magic.Fireball, magic.Frostbolt, magic.ManaRestore)):
             return spell.get_damage()
 
 
