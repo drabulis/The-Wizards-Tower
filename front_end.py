@@ -88,7 +88,7 @@ def second_stage(wizard):
                         fight_log.append(player_info)
                         if selected_spell.lifesteal == True:
                             wizard.hp = wizard.hp + player_damage * 5
-                            hp_restore_info = f'Player restores {player_damage} HP'
+                            hp_restore_info = f'Player restores {player_damage * 5} HP'
                             fight_log.append(hp_restore_info)
 
 
@@ -181,7 +181,7 @@ def third_stage(wizard):
                         fight_log.append(player_info)
                         if selected_spell.lifesteal == True:
                             wizard.hp = wizard.hp + player_damage * 5
-                            hp_restore_info = f'Player restores {player_damage} HP'
+                            hp_restore_info = f'Player restores {player_damage * 5} HP'
                             fight_log.append(hp_restore_info)
 
                     if cerberus.hp <= 0:
