@@ -179,6 +179,10 @@ def third_stage(wizard):
                         cerberus.receive_damage(player_damage)
                         player_info = f"\nPlayer casts {selected_spell.name} and deals {player_damage} damage to Cerberus!"
                         fight_log.append(player_info)
+                        if selected_spell.lifesteal == True:
+                            wizard.hp = wizard.hp + player_damage * 5
+                            hp_restore_info = f'Player restores {player_damage} HP'
+                            fight_log.append(hp_restore_info)
 
                     if cerberus.hp <= 0:
                         window['-ENEMY_HP-'].update("Defeated!")
