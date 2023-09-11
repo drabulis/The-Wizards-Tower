@@ -46,3 +46,20 @@ class Dragon(NPC):
         elif selected_attack == "critical hit":
             damage = random.randint(20, 35)
         return damage, selected_attack
+
+class Cerberus(NPC):
+    def __init__(self, name, hp=100):
+        super().__init__(name, hp)
+
+    def attack(self):
+        attack_types = ["light tackle", "burst attack",  "heavy attack", "critical hit"]
+        selected_attack = random.choice(attack_types)
+        if selected_attack == "light tackle":
+            damage = random.randint(3, 9)
+        elif selected_attack == "burst attack":
+            damage = random.randint(10, 15)
+        elif selected_attack == "heavy attack":
+            damage = random.randint(15, 25)
+        elif selected_attack == "critical hit":
+            damage = random.randint(20, 35)
+        return damage, selected_attack
