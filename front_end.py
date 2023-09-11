@@ -32,7 +32,7 @@ def second_stage(wizard):
     spells = [Firebolt(), ManaRestore(), NecroticBlast()] 
 
     stage2_left_column = [
-        [sg.Image(filename="img/wizardas.png")],
+        [sg.Image(filename="GIT/The-Wizards-Tower/img/wizardas.png")],
         [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
         [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
@@ -44,7 +44,7 @@ def second_stage(wizard):
     ]
 
     stage2_right_column = [
-        [sg.Image(filename="img/drakonas.png")],
+        [sg.Image(filename="GIT/The-Wizards-Tower/img/drakonas.png")],
         [sg.Text(dragon.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {dragon.hp}", key='-ENEMY_HP-', text_color='red')],
     ]
@@ -125,7 +125,7 @@ def third_stage(wizard):
     spells = [Firebolt(), ManaRestore(), NecroticBlast(), Fireball()] 
 
     stage2_left_column = [
-        [sg.Image(filename="img/wizardas.png")],
+        [sg.Image(filename="GIT/The-Wizards-Tower/img/wizardas.png")],
         [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
         [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
@@ -137,7 +137,7 @@ def third_stage(wizard):
     ]
 
     stage2_right_column = [
-        [sg.Image(filename="img/cerberus.png")],
+        [sg.Image(filename="GIT/The-Wizards-Tower/img/cerberus.png")],
         [sg.Text(cerberus.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {cerberus.hp}", key='-ENEMY_HP-', text_color='red')],
     ]
@@ -220,7 +220,7 @@ if player_name:
     spells = [Firebolt(), ManaRestore()]
 
 left_column = [
-    [sg.Image(filename="img/wizardas.png")],
+    [sg.Image(filename="GIT/The-Wizards-Tower/img/wizardas.png")],
     [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
     [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
     [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
@@ -232,7 +232,7 @@ center_column = [
 ]
 
 right_column = [
-    [sg.Image(filename="img/goblinas.png")],
+    [sg.Image(filename="GIT/The-Wizards-Tower/img/goblinas.png")],
     [sg.Text(goblin.name, font=("Helvetica", 12), text_color='white')],
     [sg.Text(f"HP: {goblin.hp}", key='-ENEMY_HP-', text_color='red')],
 ]
