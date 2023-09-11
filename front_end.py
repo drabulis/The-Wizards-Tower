@@ -3,6 +3,7 @@ import random
 from main import Player
 from enemies import Goblin, Dragon, Cerberus
 from magic import Firebolt, ManaRestore, Fireball, NecroticBlast
+import tkinter as tk
 
 sg.theme('DarkBrown4') 
 
@@ -32,19 +33,19 @@ def second_stage(wizard):
     spells = [Firebolt(), ManaRestore(), NecroticBlast()] 
 
     stage2_left_column = [
-        [sg.Image(filename="img/wizardas.png")],
+        [sg.Image(filename="The-Wizards-Tower/img/wizardas.png")],
         [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
         [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
     ]
 
     stage2_center_column = [
-        [sg.Text("SECOND STAGE", size=(40, 1), justification='center', font=("Helvetica", 16))],
+        [sg.Text("Dragon's den", size=(40, 1), justification='center', font=("Helvetica", 16))],
         [sg.Output(size=(55, 10), key='-FIGHT_INFO-', text_color='black', background_color='white', font=("Helvetica", 10))],
     ]
 
     stage2_right_column = [
-        [sg.Image(filename="img/drakonas.png")],
+        [sg.Image(filename="The-Wizards-Tower/img/drakonas.png")],
         [sg.Text(dragon.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {dragon.hp}", key='-ENEMY_HP-', text_color='red')],
     ]
@@ -52,6 +53,7 @@ def second_stage(wizard):
     spell_buttons = [sg.Button(spell.name, key=spell.name) for spell in spells]
 
     layout = [
+        [sg.Image(filename="The-Wizards-Tower/img/dragonbg.png")],
         [sg.Column(stage2_left_column, element_justification='center'), sg.Column(stage2_center_column, element_justification='center'), sg.Column(stage2_right_column, element_justification='center')],
         [sg.HorizontalSeparator()],
         spell_buttons,
@@ -87,8 +89,8 @@ def second_stage(wizard):
                         player_info = f"\nPlayer casts {selected_spell.name} and deals {player_damage} damage to Dragon!"
                         fight_log.append(player_info)
                         if selected_spell.lifesteal == True:
-                            wizard.hp = wizard.hp + player_damage * 5
-                            hp_restore_info = f'Player restores {player_damage} HP'
+                            wizard.hp = wizard.hp + player_damage
+                            hp_restore_info = f'Player restores {player_damage} HP.'
                             fight_log.append(hp_restore_info)
 
 
@@ -125,19 +127,19 @@ def third_stage(wizard):
     spells = [Firebolt(), ManaRestore(), NecroticBlast(), Fireball()] 
 
     stage2_left_column = [
-        [sg.Image(filename="img/wizardas.png")],
+        [sg.Image(filename="The-Wizards-Tower/img/wizardas.png")],
         [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
         [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
     ]
 
     stage2_center_column = [
-        [sg.Text("THIRD STAGE", size=(40, 1), justification='center', font=("Helvetica", 16))],
+        [sg.Text("Underworld", size=(40, 1), justification='center', font=("Helvetica", 16))],
         [sg.Output(size=(55, 10), key='-FIGHT_INFO-', text_color='black', background_color='white', font=("Helvetica", 10))],
     ]
 
     stage2_right_column = [
-        [sg.Image(filename="img/cerberus.png")],
+        [sg.Image(filename="The-Wizards-Tower/img/cerberus.png")],
         [sg.Text(cerberus.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {cerberus.hp}", key='-ENEMY_HP-', text_color='red')],
     ]
@@ -145,6 +147,7 @@ def third_stage(wizard):
     spell_buttons = [sg.Button(spell.name, key=spell.name) for spell in spells]
 
     layout = [
+        [sg.Image(filename="The-Wizards-Tower/img/cerberusbg.png")],
         [sg.Column(stage2_left_column, element_justification='center'), sg.Column(stage2_center_column, element_justification='center'), sg.Column(stage2_right_column, element_justification='center')],
         [sg.HorizontalSeparator()],
         spell_buttons,
@@ -179,6 +182,10 @@ def third_stage(wizard):
                         cerberus.receive_damage(player_damage)
                         player_info = f"\nPlayer casts {selected_spell.name} and deals {player_damage} damage to Cerberus!"
                         fight_log.append(player_info)
+                        if selected_spell.lifesteal == True:
+                            wizard.hp = wizard.hp + player_damage
+                            hp_restore_info = f'Player restores {player_damage} HP.'
+                            fight_log.append(hp_restore_info)
 
                     if cerberus.hp <= 0:
                         window['-ENEMY_HP-'].update("Defeated!")
@@ -211,24 +218,24 @@ def third_stage(wizard):
 player_name = get_player_name()
 
 if player_name:
-    wizard = Player(name=player_name, hp=200, mana=50)
+    wizard = Player(name=player_name, hp=2000, mana=50)
     goblin = Goblin(name="Goblin", hp=50)
     spells = [Firebolt(), ManaRestore()]
 
 left_column = [
-    [sg.Image(filename="img/wizardas.png")],
+    [sg.Image(filename="The-Wizards-Tower/img/wizardas.png")],
     [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
     [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
     [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
 ]
 
 center_column = [
-    [sg.Text("FIRST STAGE", size=(40, 1), justification='center', font=("Helvetica", 16))],
+    [sg.Text("Cave", size=(40, 1), justification='center', font=("Helvetica", 16))],
     [sg.Output(size=(55, 10), key='-FIGHT_INFO-', text_color='black', background_color='white', font=("Helvetica", 10))],
 ]
 
 right_column = [
-    [sg.Image(filename="img/goblinas.png")],
+    [sg.Image(filename="The-Wizards-Tower/img/goblinas.png")],
     [sg.Text(goblin.name, font=("Helvetica", 12), text_color='white')],
     [sg.Text(f"HP: {goblin.hp}", key='-ENEMY_HP-', text_color='red')],
 ]
@@ -236,6 +243,7 @@ right_column = [
 spell_buttons = [sg.Button(spell.name, key=spell.name) for spell in spells]
 
 layout = [
+    [sg.Image(filename="The-Wizards-Tower/img/goblinbg.png")],
     [sg.Column(left_column, element_justification='center'), sg.Column(center_column, element_justification='center'), sg.Column(right_column, element_justification='center')],
     [sg.HorizontalSeparator()],
     spell_buttons,
@@ -243,6 +251,7 @@ layout = [
 ]
 
 window = sg.Window("THE WIZARDS TOWER", layout, finalize=True)
+
 
 game_over = False
 fight_log = [] 
