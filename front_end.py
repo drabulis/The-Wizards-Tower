@@ -2,8 +2,7 @@ import PySimpleGUI as sg
 import random
 from main import Player
 from enemies import Goblin, Dragon, Cerberus
-from magic import Firebolt, ManaRestore, Fireball, Frostbolt
-import os
+from magic import Firebolt, ManaRestore, Fireball, NecroticBlast
 
 sg.theme('DarkBrown4') 
 
@@ -30,10 +29,10 @@ def get_player_name():
 
 def second_stage(wizard):
     dragon = Dragon(name="Dragon", hp=100) 
-    spells = [Firebolt(), ManaRestore(), Fireball()] 
+    spells = [Firebolt(), ManaRestore(), NecroticBlast()] 
 
     stage2_left_column = [
-        [sg.Image(filename="The-Wizards-Tower/img/wizardas.png")],
+        [sg.Image(filename="img/wizardas.png")],
         [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
         [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
@@ -45,7 +44,7 @@ def second_stage(wizard):
     ]
 
     stage2_right_column = [
-        [sg.Image(filename="The-Wizards-Tower/img/drakonas.png")],
+        [sg.Image(filename="img/drakonas.png")],
         [sg.Text(dragon.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {dragon.hp}", key='-ENEMY_HP-', text_color='red')],
     ]
@@ -87,11 +86,16 @@ def second_stage(wizard):
                         dragon.receive_damage(player_damage)
                         player_info = f"\nPlayer casts {selected_spell.name} and deals {player_damage} damage to Dragon!"
                         fight_log.append(player_info)
+                        if selected_spell.lifesteal == True:
+                            wizard.hp = wizard.hp + player_damage * 5
+                            hp_restore_info = f'Player restores {player_damage} HP'
+                            fight_log.append(hp_restore_info)
+
 
                     if dragon.hp <= 0:
                         window['-ENEMY_HP-'].update("Defeated!")
                         fight_log.append(f"Player wins!")
-                        sg.popup(f"{wizard.name} wins and got new powerful spell 'Frostbolt'!", title="Victory")
+                        sg.popup(f"{wizard.name} wins and got new powerful spell 'Fireball'!", title="Victory")
                         window.close()
                         third_stage(wizard)
                         game_over = True
@@ -118,10 +122,10 @@ def second_stage(wizard):
 
 def third_stage(wizard):
     cerberus = Cerberus(name="Cerberus", hp=100) 
-    spells = [Firebolt(), ManaRestore(), Fireball(), Frostbolt()] 
+    spells = [Firebolt(), ManaRestore(), NecroticBlast(), Fireball()] 
 
     stage2_left_column = [
-        [sg.Image(filename="The-Wizards-Tower/img/wizardas.png")],
+        [sg.Image(filename="img/wizardas.png")],
         [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
         [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
@@ -133,7 +137,7 @@ def third_stage(wizard):
     ]
 
     stage2_right_column = [
-        [sg.Image(filename="The-Wizards-Tower/img/cerberus.png")],
+        [sg.Image(filename="img/cerberus.png")],
         [sg.Text(cerberus.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {cerberus.hp}", key='-ENEMY_HP-', text_color='red')],
     ]
@@ -207,12 +211,12 @@ def third_stage(wizard):
 player_name = get_player_name()
 
 if player_name:
-    wizard = Player(name=player_name, hp=1000, mana=50)
+    wizard = Player(name=player_name, hp=200, mana=50)
     goblin = Goblin(name="Goblin", hp=50)
     spells = [Firebolt(), ManaRestore()]
 
 left_column = [
-    [sg.Image(filename="The-Wizards-Tower/img/wizardas.png")],
+    [sg.Image(filename="img/wizardas.png")],
     [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
     [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
     [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
@@ -224,7 +228,7 @@ center_column = [
 ]
 
 right_column = [
-    [sg.Image(filename="The-Wizards-Tower/img/goblinas.png")],
+    [sg.Image(filename="img/goblinas.png")],
     [sg.Text(goblin.name, font=("Helvetica", 12), text_color='white')],
     [sg.Text(f"HP: {goblin.hp}", key='-ENEMY_HP-', text_color='red')],
 ]
@@ -269,7 +273,7 @@ while not game_over:
                 if goblin.hp <= 0:
                     window['-ENEMY_HP-'].update("Defeated!")
                     fight_log.append(f"Player wins!")
-                    sg.popup(f"{wizard.name} wins and got new powerful spell 'Fireball'!", title="Victory")
+                    sg.popup(f"{wizard.name} wins and got new powerful spell 'NecroticBlast'!", title="Victory")
                     window.close()
                     second_stage(wizard)
                     game_over = True
