@@ -5,11 +5,11 @@ from magic import Firebolt, ManaRestore, Fireball, NecroticBlast
 import pygame
 
 pygame.mixer.init()
-game_music = 'The-Wizards-Tower/cave.mp3'
+game_music = 'music/cave.mp3'
 pygame.mixer.music.load(game_music)
-spell_sound = pygame.mixer.Sound('The-Wizards-Tower/spell.mp3')
-mana_sound = pygame.mixer.Sound('The-Wizards-Tower/manaa.mp3')
-necrotic_sound = pygame.mixer.Sound('The-Wizards-Tower/necroticc.mp3')
+spell_sound = pygame.mixer.Sound('music/spell.mp3')
+mana_sound = pygame.mixer.Sound('music/manaa.mp3')
+necrotic_sound = pygame.mixer.Sound('music/necroticc.mp3')
 
 sg.theme('DarkBrown4') 
 
@@ -39,7 +39,7 @@ def second_stage(wizard):
     spells = [Firebolt(), ManaRestore(), NecroticBlast()] 
 
     stage2_left_column = [
-        [sg.Image(filename="The-Wizards-Tower/img/wizardas.png")],
+        [sg.Image(filename="img/wizardas.png")],
         [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
         [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
@@ -51,7 +51,7 @@ def second_stage(wizard):
     ]
 
     stage2_right_column = [
-        [sg.Image(filename="The-Wizards-Tower/img/drakonas.png")],
+        [sg.Image(filename="img/drakonas.png")],
         [sg.Text(dragon.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {dragon.hp}", key='-ENEMY_HP-', text_color='red')],
     ]
@@ -59,7 +59,7 @@ def second_stage(wizard):
     spell_buttons = [sg.Button(spell.name, key=spell.name) for spell in spells]
 
     layout = [
-        [sg.Image(filename="The-Wizards-Tower/img/dragonbg.png")],
+        [sg.Image(filename="img/dragonbg.png")],
         [sg.Column(stage2_left_column, element_justification='center'), sg.Column(stage2_center_column, element_justification='center'), sg.Column(stage2_right_column, element_justification='center')],
         [sg.HorizontalSeparator()],
         spell_buttons,
@@ -136,7 +136,7 @@ def third_stage(wizard):
     spells = [Firebolt(), ManaRestore(), NecroticBlast(), Fireball()] 
 
     stage2_left_column = [
-        [sg.Image(filename="The-Wizards-Tower/img/wizardas.png")],
+        [sg.Image(filename="img/wizardas.png")],
         [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
         [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
@@ -148,7 +148,7 @@ def third_stage(wizard):
     ]
 
     stage2_right_column = [
-        [sg.Image(filename="The-Wizards-Tower/img/cerberus.png")],
+        [sg.Image(filename="img/cerberus.png")],
         [sg.Text(cerberus.name, font=("Helvetica", 12), text_color='white')],
         [sg.Text(f"HP: {cerberus.hp}", key='-ENEMY_HP-', text_color='red')],
     ]
@@ -156,7 +156,7 @@ def third_stage(wizard):
     spell_buttons = [sg.Button(spell.name, key=spell.name) for spell in spells]
 
     layout = [
-        [sg.Image(filename="The-Wizards-Tower/img/cerberusbg.png")],
+        [sg.Image(filename="img/cerberusbg.png")],
         [sg.Column(stage2_left_column, element_justification='center'), sg.Column(stage2_center_column, element_justification='center'), sg.Column(stage2_right_column, element_justification='center')],
         [sg.HorizontalSeparator()],
         spell_buttons,
@@ -230,12 +230,12 @@ pygame.mixer.music.play(-1)
 player_name = get_player_name()
 
 if player_name:
-    wizard = Player(name=player_name, hp=2000, mana=50)
+    wizard = Player(name=player_name, hp=200, mana=50)
     goblin = Goblin(name="Goblin", hp=50)
     spells = [Firebolt(), ManaRestore()]
 
 left_column = [
-    [sg.Image(filename="The-Wizards-Tower/img/wizardas.png")],
+    [sg.Image(filename="img/wizardas.png")],
     [sg.Text(wizard.name, font=("Helvetica", 12), text_color='white')],
     [sg.Text(f"HP: {wizard.hp}", key='-PLAYER_HP-', text_color='red')],
     [sg.Text(f"Mana: {wizard.mana}", key='-PLAYER_MANA-', text_color='blue')],
@@ -247,7 +247,7 @@ center_column = [
 ]
 
 right_column = [
-    [sg.Image(filename="The-Wizards-Tower/img/goblinas.png")],
+    [sg.Image(filename="img/goblinas.png")],
     [sg.Text(goblin.name, font=("Helvetica", 12), text_color='white')],
     [sg.Text(f"HP: {goblin.hp}", key='-ENEMY_HP-', text_color='red')],
 ]
@@ -255,7 +255,7 @@ right_column = [
 spell_buttons = [sg.Button(spell.name, key=spell.name) for spell in spells]
 
 layout = [
-    [sg.Image(filename="The-Wizards-Tower/img/goblinbg.png")],
+    [sg.Image(filename="img/goblinbg.png")],
     [sg.Column(left_column, element_justification='center'), sg.Column(center_column, element_justification='center'), sg.Column(right_column, element_justification='center')],
     [sg.HorizontalSeparator()],
     spell_buttons,
